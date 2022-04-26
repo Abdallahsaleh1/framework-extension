@@ -4,19 +4,26 @@ const cors = require('cors');
 
 //Database Connection
 const db = require('./src/server');
-db.authenticate().then(() => {
-    console.log('Database connected...');
-}).catch(err => {
-    console.log('Error: ' + err);
-})
+
+db.connect(function(err) {
+    if (err) {
+        console.log('Error: ' + err);
+        throw err;
+    }
+  console.log('Database connected...');
+});
+
 
 const app = express();
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors("*"));
+app.use('/', require('./src/routes/studentsRoute'));
 
 const PORT = process.env.PORT || 5000;
-db.sync().then(() => {
+try {
     app.listen(PORT, console.log(`Server started on port ${PORT}`));
-}).catch(err => console.log("Error: " + err));
+} catch (err) {
+    console.log("Error: " + err)
+};
