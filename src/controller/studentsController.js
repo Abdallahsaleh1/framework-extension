@@ -1,9 +1,9 @@
 const studentsService = require("../services/studentsService")
 const reqResponse = require('../core/responseHandler');
 
-test = async (req, res, next) => {
+storePersonalInformation = async (req, res, next) => {
   try {
-    const response = await studentsService.test();
+    const response = await studentsService.storePersonalInformation(req.body);
     res
       .status(201)
       .send(reqResponse.successResponse(201, "success", response));
@@ -12,7 +12,18 @@ test = async (req, res, next) => {
   }
 };
 
+storeProblemInformation = async (req, res, next) => {
+  try {
+    const response = await studentsService.storeProblemInformation(req.body);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
-    test
+  storePersonalInformation,
+  storeProblemInformation
 };

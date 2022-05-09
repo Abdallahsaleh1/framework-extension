@@ -4,7 +4,8 @@ const router = express.Router();
 
 
 
-router.get("/", studentsController.test);
+router.post("/personal", studentsController.storePersonalInformation);
+router.post("/problem", studentsController.storeProblemInformation);
 
 
 module.exports = router;
