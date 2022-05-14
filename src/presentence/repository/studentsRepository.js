@@ -36,7 +36,25 @@ storeProblemInformation = async (model) => {
   });
 };
 
+
+checkLoginInformation = async (username , password) => {
+  var sql = `SELECT * FROM users WHERE registration_id = "${username}" AND password = "${password}"`
+  console.log(sql)
+    return new Promise(function (resolve, reject) {
+      db.query(sql, function (err, result) {
+        if (err) {
+          resolve(err);
+          throw err;
+        }
+        else {
+          resolve(result);
+        }
+      });
+    });
+  };
+
 module.exports = {
   storePersonalInformation,
-  storeProblemInformation
+  storeProblemInformation,
+  checkLoginInformation
 };

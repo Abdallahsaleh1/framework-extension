@@ -23,7 +23,20 @@ storeProblemInformation = async (req, res, next) => {
   }
 };
 
+checkLoginInformation = async (req, res, next) => {
+  try {
+    const response = await studentsService.checkLoginInformation(req.body);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
+
 module.exports = {
   storePersonalInformation,
-  storeProblemInformation
+  storeProblemInformation,
+  checkLoginInformation
 };

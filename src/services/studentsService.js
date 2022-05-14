@@ -14,7 +14,15 @@ storeProblemInformation = async (model) => {
   return await studentsRepository.storeProblemInformation(model);
 };
 
+checkLoginInformation = async (model) => {
+ let username = model.username ;
+ let password = model.password ;
+ return await studentsRepository.checkLoginInformation(username , password)
+   
+};
+
 module.exports = {
   storePersonalInformation,
-  storeProblemInformation
+  storeProblemInformation,
+  checkLoginInformation
 };
