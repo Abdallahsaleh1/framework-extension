@@ -34,9 +34,22 @@ checkLoginInformation = async (req, res, next) => {
   }
 };
 
+getStudentsProblem = async (req, res, next) => {
+  console.log(req.params.problemType)
+  try {
+    const response = await studentsService.getStudentsProblem(req.params.problemType);
+    console.log(response , "**********")
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
-  checkLoginInformation
+  checkLoginInformation,
+  getStudentsProblem
 };

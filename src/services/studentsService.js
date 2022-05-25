@@ -21,8 +21,14 @@ checkLoginInformation = async (model) => {
    
 };
 
+getStudentsProblem = async (model) => {
+  return await studentsRepository.getStudentsProblem(model)
+    
+ };
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
-  checkLoginInformation
+  checkLoginInformation,
+  getStudentsProblem
 };
