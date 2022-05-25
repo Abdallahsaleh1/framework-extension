@@ -16,9 +16,9 @@ db.connect(function(err) {
 
 const app = express();
 
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(cors("*"));
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 app.use('/', require('./src/routes/studentsRoute'));
 
 const PORT = process.env.PORT || 5000;
