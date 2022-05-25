@@ -10,4 +10,5 @@ const db = mysql.createConnection({
     password: config.db.password,
     database: config.db.database
 });
+
 module.exports = db;

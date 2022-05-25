@@ -1,9 +1,9 @@
 const studentsService = require("../services/studentsService")
 const reqResponse = require('../core/responseHandler');
 
-storePersonalInformation = async (req, res, next) => {
+signup = async (req, res, next) => {
   try {
-    const response = await studentsService.storePersonalInformation(req.body);
+    const response = await studentsService.signup(req.body);
     res
       .status(201)
       .send(reqResponse.successResponse(201, "success", response));
@@ -47,9 +47,21 @@ getStudentsProblem = async (req, res, next) => {
   }
 };
 
+setChangeMajorInformation = async (req, res, next) => {
+  try {
+    const response = await studentsService.setChangeMajorInformation(req.body);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
-  storePersonalInformation,
+  signup,
   storeProblemInformation,
   checkLoginInformation,
-  getStudentsProblem
+  getStudentsProblem,
+  setChangeMajorInformation
 };
