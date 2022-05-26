@@ -64,7 +64,7 @@ checkLoginInformation = async (username , password) => {
     if(model == 1){
         var sql = `SELECT * FROM subjects  LEFT JOIN students ON subjects.stu_id = students.stu_id`
     } else{
-      var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where students.problem_type = ${model}`
+      var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_type = ${model}`
     }
           return new Promise(function (resolve, reject) {
             db.query(sql, function (err, result) {
@@ -81,9 +81,51 @@ checkLoginInformation = async (username , password) => {
 
   };
 
+  getStatus = async (model) => {
+    // if(model == 1){
+    //     var sql = `SELECT * FROM subjects  LEFT JOIN students ON subjects.stu_id = students.stu_id`
+    // } else{
+    //   var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where students.problem_type = ${model}`
+    // }
+    //       return new Promise(function (resolve, reject) {
+    //         db.query(sql, function (err, result) {
+    //           if (err) {
+    //             resolve(err);
+    //             throw err;
+    //           }
+    //           else {
+    //             resolve(result);
+    //           }
+    //         });
+    //       });
+  
+
+  };
+
+  changeStatus = async (model) => {
+    console.log(model.problem_status)
+      // var sql = `UPDATE subjects SET problem_status = 'Alfred Schmidt' WHERE CustomerID = 1;`
+  
+      //     return new Promise(function (resolve, reject) {
+      //       db.query(sql, function (err, result) {
+      //         if (err) {
+      //           resolve(err);
+      //           throw err;
+      //         }
+      //         else {
+      //           resolve(result);
+      //         }
+      //       });
+      //     });
+  
+
+  };
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
   checkLoginInformation,
-  getStudentsProblem
+  getStudentsProblem,
+  getStatus,
+  changeStatus
 };

@@ -29,9 +29,21 @@ getStudentsProblem = async (model) => {
     
  };
 
+ getStatus = async (model) => {
+  return await studentsRepository.getStatus(model)
+    
+ };
+
+ changeStatus = async (model) => {
+  return await studentsRepository.changeStatus(model)
+    
+ };
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
   checkLoginInformation,
-  getStudentsProblem
+  getStudentsProblem,
+  getStatus,
+  changeStatus
 };

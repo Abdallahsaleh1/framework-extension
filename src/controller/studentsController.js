@@ -47,9 +47,36 @@ getStudentsProblem = async (req, res, next) => {
   }
 };
 
+
+getStatus = async (req, res, next) => {
+  // console.log(req.params.status)
+  // try {
+  //   const response = await studentsService.getStatus(req.params.status);
+  //   res
+  //     .status(201)
+  //     .send(reqResponse.successResponse(201, "success", response));
+  // } catch (err) {
+  //   next(err);
+  // }
+};
+
+
+changeStatus = async (req, res, next) => {
+  try {
+    const response = await studentsService.changeStatus(req.body);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
   checkLoginInformation,
-  getStudentsProblem
+  getStudentsProblem,
+  getStatus,
+  changeStatus
 };

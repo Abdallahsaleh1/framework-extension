@@ -10,8 +10,14 @@ db.connect(function(err) {
         console.log('Error: ' + err);
         throw err;
     }
-  console.log('Database connected...');
+    console.log('Database connected...');
+    refreshConnection();
 });
+function refreshConnection() {
+  setInterval(function () {
+    db.query('SELECT 1');
+  }, 5000);
+}
 
 
 const app = express();
