@@ -24,18 +24,20 @@ checkLoginInformation = async (model) => {
    
 };
 
-getStudentsProblem = async (model) => {
-  return await studentsRepository.getStudentsProblem(model)
+getStudentsProblem = async (problemType , status) => {
+  return await studentsRepository.getStudentsProblem(problemType , status)
     
  };
 
- getStatus = async (model) => {
-  return await studentsRepository.getStatus(model)
+ getStatus = async (status , problemType) => {
+  return await studentsRepository.getStatus(status , problemType)
     
  };
 
  changeStatus = async (model) => {
-  return await studentsRepository.changeStatus(model)
+  let problem_status = model.problem_status ;
+  let subject_id = model.id ;
+  return await studentsRepository.changeStatus(problem_status , subject_id)
     
  };
 

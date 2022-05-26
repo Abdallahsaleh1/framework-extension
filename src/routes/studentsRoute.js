@@ -7,8 +7,8 @@ const router = express.Router();
 router.post("/personal", studentsController.storePersonalInformation);
 router.post("/problem", studentsController.storeProblemInformation);
 router.post("/login", studentsController.checkLoginInformation);
-router.get("/table/:problemType", studentsController.getStudentsProblem);
-router.get("/table/:status", studentsController.getStatus);
+router.get("/table/:problemType/:status", studentsController.getStudentsProblem);
+router.get("/table_with_status/:status/:problemType", studentsController.getStatus);
 router.put("/table", studentsController.changeStatus);
 
 

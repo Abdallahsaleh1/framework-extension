@@ -37,7 +37,7 @@ checkLoginInformation = async (req, res, next) => {
 getStudentsProblem = async (req, res, next) => {
   console.log(req.params.problemType)
   try {
-    const response = await studentsService.getStudentsProblem(req.params.problemType);
+    const response = await studentsService.getStudentsProblem(req.params.problemType , req.params.status);
     console.log(response , "**********")
     res
       .status(201)
@@ -49,15 +49,14 @@ getStudentsProblem = async (req, res, next) => {
 
 
 getStatus = async (req, res, next) => {
-  // console.log(req.params.status)
-  // try {
-  //   const response = await studentsService.getStatus(req.params.status);
-  //   res
-  //     .status(201)
-  //     .send(reqResponse.successResponse(201, "success", response));
-  // } catch (err) {
-  //   next(err);
-  // }
+  try {
+    const response = await studentsService.getStatus(req.params.status , req.params.problemType);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
 };
 
 
