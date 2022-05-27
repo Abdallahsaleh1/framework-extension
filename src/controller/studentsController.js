@@ -71,11 +71,39 @@ changeStatus = async (req, res, next) => {
   }
 };
 
+getMajorChange = async (req, res, next) => {
+  console.log(req.params.major , req.params.year)
+  try {
+    const response = await studentsService.getMajorChange(req.params.major , req.params.year);
+    console.log(response , "**********")
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
+getYear = async (req, res, next) => {
+  console.log(req.params.year , req.params.major)
+  try {
+    const response = await studentsService.getYear(req.params.year , req.params.major);
+    console.log(response , "**********")
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
   checkLoginInformation,
   getStudentsProblem,
   getStatus,
-  changeStatus
+  changeStatus,
+  getMajorChange,
+  getYear
 };

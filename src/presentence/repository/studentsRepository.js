@@ -123,11 +123,60 @@ checkLoginInformation = async (username , password) => {
 
   };
 
+
+  getMajorChange = async (major, year) => {
+    if(major == 3 && (year == 0 || year ==1)){
+      var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id`
+  } else if(major != 3 && (year == 0 || year ==1)){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major}`
+  }else{
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} AND  major_change.study_year = "${year}"`
+  }
+        return new Promise(function (resolve, reject) {
+          db.query(sql, function (err, result) {
+            if (err) {
+              resolve(err);
+              throw err;
+            }
+            else {
+              resolve(result);
+            }
+          });
+        });
+
+
+  };
+  
+  getYear = async (year ,major) => {
+    if((major == 3 || major==0) &&  year ==1){
+      var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id`
+  } else if(major != 3 &&  year ==1){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major}`
+  }else{
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} AND  major_change.study_year = "${year}"`
+  }
+        return new Promise(function (resolve, reject) {
+          db.query(sql, function (err, result) {
+            if (err) {
+              resolve(err);
+              throw err;
+            }
+            else {
+              resolve(result);
+            }
+          });
+        });
+
+  
+  };
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
   checkLoginInformation,
   getStudentsProblem,
   getStatus,
-  changeStatus
+  changeStatus,
+  getMajorChange,
+  getYear
 };

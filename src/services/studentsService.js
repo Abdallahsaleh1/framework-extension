@@ -41,11 +41,24 @@ getStudentsProblem = async (problemType , status) => {
     
  };
 
+
+getMajorChange = async (major, year) => {
+  return await studentsRepository.getMajorChange(major, year)
+
+};
+
+getYear = async (year ,major) => {
+  return await studentsRepository.getYear(year ,major)
+
+};
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
   checkLoginInformation,
   getStudentsProblem,
   getStatus,
-  changeStatus
+  changeStatus,
+  getMajorChange,
+  getYear
 };
