@@ -10,6 +10,7 @@ router.post("/login", studentsController.checkLoginInformation);
 router.get("/table/:problemType/:status", studentsController.getStudentsProblem);
 router.get("/table_with_status/:status/:problemType", studentsController.getStatus);
 router.put("/table", studentsController.changeStatus);
+router.post("/sendEmail", studentsController.sendEmail);
 
 
 
