@@ -25,15 +25,39 @@ checkLoginInformation = async (model) => {
    
 };
 
-getStudentsProblem = async (model) => {
-  return await studentsRepository.getStudentsProblem(model)
+getStudentsProblem = async (problemType , status) => {
+  return await studentsRepository.getStudentsProblem(problemType , status)
+    
 };
- 
+
 setChangeMajorInformation = async (model) => {
   model.date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   model.problemStatus = "TO DO";
   return await studentsRepository.setChangeMajorInformation(model)
  };
+
+ getStatus = async (status , problemType) => {
+  return await studentsRepository.getStatus(status , problemType)
+    
+ };
+
+ changeStatus = async (model) => {
+  let problem_status = model.problem_status ;
+  let subject_id = model.id ;
+  return await studentsRepository.changeStatus(problem_status , subject_id)
+    
+ };
+
+
+getMajorChange = async (major, year) => {
+  return await studentsRepository.getMajorChange(major, year)
+
+};
+
+getYear = async (year ,major) => {
+  return await studentsRepository.getYear(year ,major)
+
+};
 
 sendEmail = async () => {
   return await studentsRepository.sendEmail();
@@ -44,6 +68,10 @@ module.exports = {
   storeProblemInformation,
   checkLoginInformation,
   getStudentsProblem,
+  getStatus,
+  changeStatus,
+  getMajorChange,
+  getYear,
   setChangeMajorInformation,
   sendEmail
 };

@@ -13,6 +13,11 @@ db.connect(function(err) {
     console.log('Database connected...');
     refreshConnection();
 });
+function refreshConnection() {
+  setInterval(function () {
+    db.query('SELECT 1');
+  }, 5000);
+}
 
 function refreshConnection() {
   setInterval(function () {
