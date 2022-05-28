@@ -110,7 +110,18 @@ setChangeMajorInformation = async (req, res, next) => {
 
 sendEmail = async (req, res, next) => {
   try {
-    const response = await studentsService.sendEmail();
+    const response = await studentsService.sendEmail(req.body);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
+sendDoneEmail = async (req, res, next) => {
+  try {
+    const response = await studentsService.sendDoneEmail(req.body);
     res
       .status(201)
       .send(reqResponse.successResponse(201, "success", response));
@@ -129,5 +140,6 @@ module.exports = {
   getMajorChange,
   getYear,
   setChangeMajorInformation,
-  sendEmail
+  sendEmail,
+  sendDoneEmail
 };
