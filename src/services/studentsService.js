@@ -49,13 +49,13 @@ setChangeMajorInformation = async (model) => {
  };
 
 
-getMajorChange = async (major, year) => {
-  return await studentsRepository.getMajorChange(major, year)
+getMajorChange = async (major, year, status) => {
+  return await studentsRepository.getMajorChange(major, year ,status)
 
 };
 
-getYear = async (year ,major) => {
-  return await studentsRepository.getYear(year ,major)
+getYear = async (year ,major, status) => {
+  return await studentsRepository.getYear(year ,major, status)
 
 };
 
@@ -63,6 +63,18 @@ sendEmail = async () => {
   return await studentsRepository.sendEmail();
 };
  
+getMajorStatus = async (status , major , year) => {
+  return await studentsRepository.getMajorStatus(status , major , year)
+    
+ };
+
+ changeMajorStatus = async (model) => {
+  let problem_status = model.problem_status ;
+  let major_id = model.id ;
+  return await studentsRepository.changeMajorStatus(problem_status , major_id)
+    
+ };
+
 module.exports = {
   signup,
   storeProblemInformation,
@@ -73,5 +85,7 @@ module.exports = {
   getMajorChange,
   getYear,
   setChangeMajorInformation,
-  sendEmail
+  sendEmail,
+  getMajorStatus,
+  changeMajorStatus
 };
