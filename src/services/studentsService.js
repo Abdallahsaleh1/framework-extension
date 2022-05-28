@@ -4,7 +4,15 @@ test = async () => {
   return await studentsRepository.test();
 };
 
+dashboardCourses = async () => {
+  return await studentsRepository.dashboardCourses();
+};
 
+dashboardMajor = async () => {
+  return await studentsRepository.dashboardMajor();
+};
 module.exports = {
-    test
+    test,
+    dashboardCourses,
+    dashboardMajor
 };
