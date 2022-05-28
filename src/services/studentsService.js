@@ -34,10 +34,15 @@ setChangeMajorInformation = async (model) => {
   return await studentsRepository.setChangeMajorInformation(model)
  };
 
+sendEmail = async () => {
+  return await studentsRepository.sendEmail();
+};
+ 
 module.exports = {
   signup,
   storeProblemInformation,
   checkLoginInformation,
   getStudentsProblem,
-  setChangeMajorInformation
+  setChangeMajorInformation,
+  sendEmail
 };
