@@ -89,10 +89,10 @@ checkLoginInformation = async (username , password) => {
 
 
 setChangeMajorInformation = async (model) => {
-  var sql = `INSERT INTO major_change(stu_id,current_major,next_major,date, study_year) 
+  var sql = `INSERT INTO major_change(stu_id,current_major,next_major,date, study_year, problem_status) 
   VALUES
   ('${model.studentRegistrationId}','${model.currentMajor}','${model.nextMajor}',
-  '${model.date}', ${model.studyYear})`;
+  '${model.date}', ${model.studyYear}, '${model.problemStatus}')`;
   return new Promise(function (resolve, reject) {
     db.query(sql, function (err, result) {
       if (err) {

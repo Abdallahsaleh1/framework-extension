@@ -31,6 +31,7 @@ getStudentsProblem = async (model) => {
  
 setChangeMajorInformation = async (model) => {
   model.date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  model.problemStatus = "TO DO";
   return await studentsRepository.setChangeMajorInformation(model)
  };
 
