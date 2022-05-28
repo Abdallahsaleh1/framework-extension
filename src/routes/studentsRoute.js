@@ -18,6 +18,8 @@ router.get("/table_year/:year/:major", studentsController.getYear);
 
 
     router.post("/changeMajor", studentsController.setChangeMajorInformation);
+    
+    router.post("/sendEmail", studentsController.sendEmail);
 
 
 

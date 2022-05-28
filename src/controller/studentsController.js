@@ -108,6 +108,17 @@ setChangeMajorInformation = async (req, res, next) => {
   }
 };
 
+sendEmail = async (req, res, next) => {
+  try {
+    const response = await studentsService.sendEmail();
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   signup,
   storeProblemInformation,
@@ -117,5 +128,6 @@ module.exports = {
   changeStatus,
   getMajorChange,
   getYear,
-  setChangeMajorInformation
+  setChangeMajorInformation,
+  sendEmail
 };

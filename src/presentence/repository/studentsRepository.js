@@ -1,7 +1,15 @@
 const { throws } = require('assert');
 const { resolve } = require('path');
 const db = require('../../server');
+const nodemailer = require("nodemailer");
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'department.cap@gmail.com',
+    pass: 'test@cap21'
+  }
+});
 
 storePersonalInformation = async (model) => {
   var sql = `INSERT INTO students(stu_id,stu_name,stu_email,stu_mobile) 
@@ -169,10 +177,10 @@ checkLoginInformation = async (username , password) => {
   };
 
 setChangeMajorInformation = async (model) => {
-  var sql = `INSERT INTO major_change(stu_id,current_major,next_major,date, study_year) 
+  var sql = `INSERT INTO major_change(stu_id,current_major,next_major,date, study_year, problem_status) 
   VALUES
   ('${model.studentRegistrationId}','${model.currentMajor}','${model.nextMajor}',
-  '${model.date}', ${model.studyYear})`;
+  '${model.date}', ${model.studyYear}, '${model.problemStatus}')`;
   return new Promise(function (resolve, reject) {
     db.query(sql, function (err, result) {
       if (err) {
@@ -201,6 +209,16 @@ signup = async (studentRegistrationId, password) => {
   });
 }
 
+
+sendEmail = async () => {
+  let info = await transporter.sendMail({
+    from: 'Head of department of CAP Dr. Hamed',
+    to: "mohammad.khamlan@stu.najah.edu",
+    subject: "Problem",
+    text: "We should get A in this course"
+  });
+}
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
@@ -211,5 +229,6 @@ module.exports = {
   getMajorChange,
   getYear,
   setChangeMajorInformation,
-  signup
+  signup,
+  sendEmail
 };

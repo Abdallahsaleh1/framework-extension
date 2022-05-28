@@ -32,6 +32,7 @@ getStudentsProblem = async (problemType , status) => {
 
 setChangeMajorInformation = async (model) => {
   model.date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  model.problemStatus = "TO DO";
   return await studentsRepository.setChangeMajorInformation(model)
  };
 
@@ -58,6 +59,10 @@ getYear = async (year ,major) => {
 
 };
 
+sendEmail = async () => {
+  return await studentsRepository.sendEmail();
+};
+ 
 module.exports = {
   signup,
   storeProblemInformation,
@@ -67,5 +72,6 @@ module.exports = {
   changeStatus,
   getMajorChange,
   getYear,
-  setChangeMajorInformation
+  setChangeMajorInformation,
+  sendEmail
 };
