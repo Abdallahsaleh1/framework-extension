@@ -17,6 +17,9 @@ router.post("/changeMajor", studentsController.setChangeMajorInformation);
 router.post("/sendEmail", studentsController.sendEmail);
 router.get("/major_with_status/:major/:year/:status", studentsController.getMajorStatus);
 router.put("/change_major_status", studentsController.changeMajorStatus);
+    
+    
+    router.post("/sendDoneEmail", studentsController.sendDoneEmail);
 
 
 module.exports = router;
