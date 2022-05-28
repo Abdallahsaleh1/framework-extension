@@ -210,12 +210,21 @@ signup = async (studentRegistrationId, password) => {
 }
 
 
-sendEmail = async () => {
-  let info = await transporter.sendMail({
+sendEmail = async (model) => {
+  return await transporter.sendMail({
     from: 'Head of department of CAP Dr. Hamed',
-    to: "mohammad.khamlan@stu.najah.edu",
-    subject: "Problem",
-    text: "We should get A in this course"
+    to: model.recipient_email,
+    subject: model.subject,
+    text: model.email
+  });
+}
+
+sendDoneEmail = async (model) => {
+  return await transporter.sendMail({
+    from: 'Head of department of CAP Dr. Hamed',
+    to: model.recipient_email,
+    subject: model.subject,
+    text: model.email
   });
 }
 
@@ -230,5 +239,6 @@ module.exports = {
   getYear,
   setChangeMajorInformation,
   signup,
-  sendEmail
+  sendEmail,
+  sendDoneEmail
 };

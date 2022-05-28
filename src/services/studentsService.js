@@ -59,10 +59,13 @@ getYear = async (year ,major) => {
 
 };
 
-sendEmail = async () => {
-  return await studentsRepository.sendEmail();
+sendEmail = async (model) => {
+  return await studentsRepository.sendEmail(model);
 };
- 
+
+sendDoneEmail = async (model) => {
+  return await studentsRepository.sendDoneEmail(model);
+};
 module.exports = {
   signup,
   storeProblemInformation,
@@ -73,5 +76,6 @@ module.exports = {
   getMajorChange,
   getYear,
   setChangeMajorInformation,
-  sendEmail
+  sendEmail,
+  sendDoneEmail
 };
