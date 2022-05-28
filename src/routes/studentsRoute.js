@@ -13,6 +13,8 @@ const router = express.Router();
     router.get("/table/:problemType", studentsController.getStudentsProblem);
 
     router.post("/changeMajor", studentsController.setChangeMajorInformation);
+    
+    router.post("/sendEmail", studentsController.sendEmail);
 
 
 
