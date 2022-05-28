@@ -4,10 +4,10 @@ const db = require('../../server');
 
 
 storePersonalInformation = async (model) => {
-  var sql = `INSERT INTO students(stu_id,stu_name,stu_email,stu_mobile, problem_type) 
+  var sql = `INSERT INTO students(stu_id,stu_name,stu_email,stu_mobile) 
   VALUES
   ('${model.studentRegistrationId}','${model.studentName}','${model.studentEmail}',
-  '${model.studentMobileNumber}', ${model.problemType.toString()})`;
+  '${model.studentMobileNumber}')`;
   return new Promise(function (resolve, reject) {
     db.query(sql, function (err, result) {
       if (err) {
@@ -23,10 +23,10 @@ storePersonalInformation = async (model) => {
 
 storeProblemInformation = async (model) => {
   var sql = `INSERT INTO subjects(
-    stu_id,course_name,course_number,class_number, instructor_name, course_time, date, problem_status)
+    stu_id,course_name,course_number,class_number, instructor_name, course_time, date, problem_status, problem_type)
     VALUES
     ('${model.studentRegistrationId}','${model.courseName}','${model.courseNumber}','${model.classNumber}',
-    '${model.instructorName}','${model.courseTime}', '${model.date}', '${model.problemStatus}')`;
+    '${model.instructorName}','${model.courseTime}', '${model.date}', '${model.problemStatus}', '${model.problemType}')`;
   return new Promise(function (resolve, reject) {
     db.query(sql, function (err, result) {
       if (err) {
@@ -79,8 +79,6 @@ checkLoginInformation = async (username , password) => {
               }
             });
           });
-  
-
   };
 
   getStatus = async (status , problemType) => {
@@ -170,6 +168,39 @@ checkLoginInformation = async (username , password) => {
   
   };
 
+setChangeMajorInformation = async (model) => {
+  var sql = `INSERT INTO major_change(stu_id,current_major,next_major,date, study_year) 
+  VALUES
+  ('${model.studentRegistrationId}','${model.currentMajor}','${model.nextMajor}',
+  '${model.date}', ${model.studyYear})`;
+  return new Promise(function (resolve, reject) {
+    db.query(sql, function (err, result) {
+      if (err) {
+        resolve(err);
+        throw err;
+      }
+      else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+signup = async (studentRegistrationId, password) => {
+  var sql = `INSERT INTO users(registration_id, password) VALUES ('${studentRegistrationId}','${password}')`;
+  return new Promise(function (resolve, reject) {
+    db.query(sql, function (err, result) {
+      if (err) {
+        resolve(err);
+        throw err;
+      }
+      else {
+        resolve(result);
+      }
+    });
+  });
+}
+
 module.exports = {
   storePersonalInformation,
   storeProblemInformation,
@@ -178,5 +209,7 @@ module.exports = {
   getStatus,
   changeStatus,
   getMajorChange,
-  getYear
+  getYear,
+  setChangeMajorInformation,
+  signup
 };

@@ -1,7 +1,8 @@
 const studentsRepository = require("../presentence/repository/studentsRepository")
 const moment = require('moment')
 
-storePersonalInformation = async (model) => {
+signup = async (model) => {
+  await studentsRepository.signup(model.studentRegistrationId, model.password);
   return await studentsRepository.storePersonalInformation(model);
 };
 
@@ -27,6 +28,11 @@ checkLoginInformation = async (model) => {
 getStudentsProblem = async (problemType , status) => {
   return await studentsRepository.getStudentsProblem(problemType , status)
     
+};
+
+setChangeMajorInformation = async (model) => {
+  model.date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  return await studentsRepository.setChangeMajorInformation(model)
  };
 
  getStatus = async (status , problemType) => {
@@ -53,12 +59,13 @@ getYear = async (year ,major) => {
 };
 
 module.exports = {
-  storePersonalInformation,
+  signup,
   storeProblemInformation,
   checkLoginInformation,
   getStudentsProblem,
   getStatus,
   changeStatus,
   getMajorChange,
-  getYear
+  getYear,
+  setChangeMajorInformation
 };

@@ -19,11 +19,16 @@ function refreshConnection() {
   }, 5000);
 }
 
+function refreshConnection() {
+  setInterval(function () {
+    db.query('SELECT 1');
+  }, 5000);
+}
 
 const app = express();
 
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use('/', require('./src/routes/studentsRoute'));
 
