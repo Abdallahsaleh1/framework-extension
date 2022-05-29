@@ -4,6 +4,8 @@ const router = express.Router();
 
 
 
+router.get("/dashboardCourses",studentsController.dashboardCourses)
+router.get("/dashboardMajor",studentsController.dashboardMajor)
 router.post("/signup", studentsController.signup);
 router.post("/problem", studentsController.storeProblemInformation);
 router.post("/login", studentsController.checkLoginInformation);

@@ -6,6 +6,15 @@ signup = async (model) => {
   return await studentsRepository.storePersonalInformation(model);
 };
 
+dashboardCourses = async () => {
+  return await studentsRepository.dashboardCourses();
+};
+
+dashboardMajor = async () => {
+  return await studentsRepository.dashboardMajor();
+};
+
+
 storeProblemInformation = async (model) => {
   const timeStamp = new Date(model.courseTime);
   const hours = timeStamp.getHours();
@@ -90,5 +99,7 @@ module.exports = {
   getYear,
   setChangeMajorInformation,
   sendEmail,
+  dashboardCourses,
+  dashboardMajor,
   sendDoneEmail
 };
