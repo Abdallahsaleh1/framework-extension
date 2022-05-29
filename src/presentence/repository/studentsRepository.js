@@ -89,8 +89,10 @@ checkLoginInformation = async (username , password) => {
         var sql = `SELECT * FROM subjects  LEFT JOIN students ON subjects.stu_id = students.stu_id`
     } else if(problemType != 1 && status =="st"){
       var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_type = ${problemType}`
+    }else if(problemType == 1 && status !="st"){
+      var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_status = "${status}"`
     }else{
-      var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_type = ${problemType} AND  subjects.problem_status = ${status}`
+      var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_type = ${problemType} AND  subjects.problem_status = "${status}"`
     }
           return new Promise(function (resolve, reject) {
             db.query(sql, function (err, result) {
@@ -106,9 +108,13 @@ checkLoginInformation = async (username , password) => {
   };
 
   getStatus = async (status , problemType) => {
-    if(problemType == 1){
-      var sql = `SELECT * FROM subjects  LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_status = "${status}" `
-  } else if(problemType != 1){
+    if((problemType == 1 || problemType == 0) && status =="st"){
+      var sql = `SELECT * FROM subjects  LEFT JOIN students ON subjects.stu_id = students.stu_id`
+  } else if((problemType != 1) && status =="st"){
+    var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_type = ${problemType}`
+  }else if((problemType == 1 || problemType == 0) && status !="st"){
+    var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_status = "${status}"`
+  }else{
     var sql = `SELECT * FROM subjects LEFT JOIN students ON subjects.stu_id = students.stu_id Where subjects.problem_type = ${problemType} AND  subjects.problem_status = "${status}"`
   }
           return new Promise(function (resolve, reject) {
@@ -146,14 +152,25 @@ checkLoginInformation = async (username , password) => {
   };
 
 
-  getMajorChange = async (major, year) => {
-    if(major == 3 && (year == 0 || year ==1)){
+  getMajorChange = async (major, year , status) => {
+    if((major == 3 || major ==0) && (year==0 || year ==1) && status == "st"){
       var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id`
-  } else if(major != 3 && (year == 0 || year ==1)){
-    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major}`
+    } else if((major == 3 || major ==0) && (year!=1) && status == "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} `
+  }else if(major != 3  && (year==0 || year ==1) && status == "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} `
+  }else if((major == 3 || major ==0)  && (year==0 || year ==1) && status != "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" `
+  }else if((major == 3 || major ==0)  && (year!=1) && status != "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" AND major_change.study_year = ${year}`
+  }else if((major!=3)  && (year==0 || year ==1) && status != "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" AND major_change.current_major  = ${major}`
+  }else if((major!=3)  && (year!=1) && status == "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} AND major_change.current_major  = ${major}`
   }else{
-    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} AND  major_change.study_year = "${year}"`
-  }
+    var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id
+    Where major_change.problem_status = "${status}" AND major_change.study_year = ${year} AND major_change.current_major  = ${major} `
+  } 
         return new Promise(function (resolve, reject) {
           db.query(sql, function (err, result) {
             if (err) {
@@ -169,14 +186,25 @@ checkLoginInformation = async (username , password) => {
 
   };
   
-  getYear = async (year ,major) => {
-    if((major == 3 || major==0) &&  year ==1){
+  getYear = async (year ,major , status) => {
+    if((major == 3 || major ==0) && (year==0 || year ==1) && status == "st"){
       var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id`
-  } else if(major != 3 &&  year ==1){
-    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major}`
+    } else if((major == 3 || major ==0) && (year!=1) && status == "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.'study_year' = ${year} `
+  }else if(major != 3  && (year==0 || year ==1) && status == "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} `
+  }else if((major == 3 || major ==0)  && (year==0 || year ==1) && status != "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" `
+  }else if((major == 3 || major ==0)  && (year!=1) && status != "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" AND major_change.'study_year' = ${year}`
+  }else if((major!=3)  && (year==0 || year ==1) && status != "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" AND major_change.current_major  = ${major}`
+  }else if((major!=3)  && (year!=1) && status == "st"){
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} AND major_change.current_major  = ${major}`
   }else{
-    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} AND  major_change.study_year = "${year}"`
-  }
+    var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id
+    Where major_change.problem_status = "${status}" AND major_change.study_year = ${year} AND major_change.current_major  = ${major} `
+  } 
         return new Promise(function (resolve, reject) {
           db.query(sql, function (err, result) {
             if (err) {
@@ -239,15 +267,80 @@ signup = async (studentRegistrationId, password) => {
       }
     });
   });
-};
-sendEmail = async () => {
-  let info = await transporter.sendMail({
+}
+
+
+sendEmail = async (model) => {
+  return await transporter.sendMail({
     from: 'Head of department of CAP Dr. Hamed',
-    to: "mohammad.khamlan@stu.najah.edu",
-    subject: "Problem",
-    text: "We should get A in this course"
+    to: model.recipient_email,
+    subject: model.subject,
+    text: model.email
   });
 }
+
+sendDoneEmail = async (model) => {
+  return await transporter.sendMail({
+    from: 'Head of department of CAP Dr. Hamed',
+    to: model.recipient_email,
+    subject: model.subject,
+    text: model.email
+  });
+}
+
+
+getMajorStatus = async (status , major , year) => {
+  if((major == 3 || major ==0) && (year==0 || year ==1) && status == "st"){
+    var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id`
+  } else if((major == 3 || major ==0) && (year!=1) && status == "st"){
+  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} `
+}else if(major != 3  && (year==0 || year ==1) && status == "st"){
+  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} `
+}else if((major == 3 || major ==0)  && (year==0 || year ==1) && status != "st"){
+  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" `
+}else if((major == 3 || major ==0)  && (year!=1) && status != "st"){
+  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} AND major_change.problem_status = "${status}"`
+}else if((major!=3)  && (year==0 || year ==1) && status != "st"){
+  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major  = ${major} major_change.problem_status = "${status}"`
+}else if((major!=3)  && (year!=1) && status == "st"){
+  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} AND major_change.current_major  = ${major}`
+}else{
+  var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id
+  Where major_change.study_year = ${year} AND major_change.current_major  = ${major}  major_change.problem_status = "${status}"`
+} 
+        return new Promise(function (resolve, reject) {
+          db.query(sql, function (err, result) {
+            if (err) {
+              resolve(err);
+              throw err;
+            }
+            else {
+              console.log(result ,"*******************")
+              resolve(result);
+            }
+          });
+        });
+
+
+};
+changeMajorStatus = async (problem_status , major_id) => {
+  var sql = `UPDATE major_change SET problem_status = ${problem_status} WHERE id=${major_id};`
+
+      return new Promise(function (resolve, reject) {
+        db.query(sql, function (err, result) {
+          if (err) {
+            resolve(err);
+            throw err;
+          }
+          else {
+            resolve(result);
+          }
+        });
+      });
+
+
+};
+
 
 module.exports = {
   storePersonalInformation,
@@ -262,5 +355,8 @@ module.exports = {
   signup,
   sendEmail,
   dashboardCourses,
-    dashboardMajor
+    dashboardMajor,
+  getMajorStatus,
+  changeMajorStatus,
+  sendDoneEmail
 };
