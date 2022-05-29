@@ -74,7 +74,7 @@ changeStatus = async (req, res, next) => {
 getMajorChange = async (req, res, next) => {
   console.log(req.params.major , req.params.year)
   try {
-    const response = await studentsService.getMajorChange(req.params.major , req.params.year);
+    const response = await studentsService.getMajorChange(req.params.major , req.params.year , req.params.status);
     console.log(response , "**********")
     res
       .status(201)
@@ -87,7 +87,7 @@ getMajorChange = async (req, res, next) => {
 getYear = async (req, res, next) => {
   console.log(req.params.year , req.params.major)
   try {
-    const response = await studentsService.getYear(req.params.year , req.params.major);
+    const response = await studentsService.getYear(req.params.year , req.params.major , req.params.satus);
     console.log(response , "**********")
     res
       .status(201)
@@ -130,6 +130,28 @@ sendDoneEmail = async (req, res, next) => {
   }
 };
 
+getMajorStatus = async (req, res, next) => {
+  try {
+    const response = await studentsService.getMajorStatus(req.params.status , req.params.major , req.params.year);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
+changeMajorStatus = async (req, res, next) => {
+  try {
+    const response = await studentsService.changeMajorStatus(req.body);
+    res
+      .status(201)
+      .send(reqResponse.successResponse(201, "success", response));
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   signup,
   storeProblemInformation,
@@ -141,5 +163,7 @@ module.exports = {
   getYear,
   setChangeMajorInformation,
   sendEmail,
+  getMajorStatus,
+  changeMajorStatus,
   sendDoneEmail
 };
