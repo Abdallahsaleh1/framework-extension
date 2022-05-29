@@ -220,7 +220,7 @@ dashboardMajor = async () => {
         throw err;
       }
       else {
-        console.log("nxjdkxb");
+        resolve(result);
       }
     });
   });
