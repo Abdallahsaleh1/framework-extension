@@ -58,7 +58,6 @@ dashboardCourses = async () => {
         throw err;
       }
       else {
-        console.log(result)
         resolve(result);
       }
     });
@@ -66,9 +65,7 @@ dashboardCourses = async () => {
 };
 
 checkLoginInformation = async (username , password) => {
-  console.log(password , "check")
   var sql = `SELECT * FROM users WHERE registration_id = "${username}" AND password = "${password}"`
-  console.log(sql)
     return new Promise(function (resolve, reject) {
       db.query(sql, function (err, result) {
         if (err) {
@@ -76,7 +73,6 @@ checkLoginInformation = async (username , password) => {
           throw err;
         }
         else {
-          console.log(result)
           resolve(result);
         }
       });
@@ -124,7 +120,6 @@ checkLoginInformation = async (username , password) => {
                 throw err;
               }
               else {
-                console.log(result ,"*******************")
                 resolve(result);
               }
             });
@@ -190,13 +185,13 @@ checkLoginInformation = async (username , password) => {
     if((major == 3 || major ==0) && (year==0 || year ==1) && status == "st"){
       var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id`
     } else if((major == 3 || major ==0) && (year!=1) && status == "st"){
-    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.'study_year' = ${year} `
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} `
   }else if(major != 3  && (year==0 || year ==1) && status == "st"){
     var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} `
   }else if((major == 3 || major ==0)  && (year==0 || year ==1) && status != "st"){
     var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" `
   }else if((major == 3 || major ==0)  && (year!=1) && status != "st"){
-    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" AND major_change.'study_year' = ${year}`
+    var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" AND major_change.study_year = ${year}`
   }else if((major!=3)  && (year==0 || year ==1) && status != "st"){
     var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.problem_status = "${status}" AND major_change.current_major  = ${major}`
   }else if((major!=3)  && (year!=1) && status == "st"){
@@ -301,12 +296,12 @@ getMajorStatus = async (status , major , year) => {
 }else if((major == 3 || major ==0)  && (year!=1) && status != "st"){
   var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} AND major_change.problem_status = "${status}"`
 }else if((major!=3)  && (year==0 || year ==1) && status != "st"){
-  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major  = ${major} major_change.problem_status = "${status}"`
+  var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.current_major = ${major} AND major_change.problem_status = "${status}"`
 }else if((major!=3)  && (year!=1) && status == "st"){
   var sql = `SELECT * FROM major_change LEFT JOIN students ON major_change.stu_id = students.stu_id Where major_change.study_year = ${year} AND major_change.current_major  = ${major}`
 }else{
   var sql = `SELECT * FROM major_change  LEFT JOIN students ON major_change.stu_id = students.stu_id
-  Where major_change.study_year = ${year} AND major_change.current_major  = ${major}  major_change.problem_status = "${status}"`
+  Where major_change.study_year = ${year} AND major_change.current_major = ${major} AND major_change.problem_status = "${status}"`
 } 
         return new Promise(function (resolve, reject) {
           db.query(sql, function (err, result) {
@@ -315,7 +310,6 @@ getMajorStatus = async (status , major , year) => {
               throw err;
             }
             else {
-              console.log(result ,"*******************")
               resolve(result);
             }
           });
@@ -355,7 +349,7 @@ module.exports = {
   signup,
   sendEmail,
   dashboardCourses,
-    dashboardMajor,
+  dashboardMajor,
   getMajorStatus,
   changeMajorStatus,
   sendDoneEmail

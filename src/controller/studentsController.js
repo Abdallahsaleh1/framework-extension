@@ -27,7 +27,6 @@ dashboardCourses = async (req, res, next) => {
 dashboardMajor = async (req, res, next) => {
   try {
     const response = await studentsService.dashboardMajor();
-    console.log(response)
     res
       .status(201)
       .send(reqResponse.successResponse(201, "success", response));
@@ -62,10 +61,8 @@ checkLoginInformation = async (req, res, next) => {
 };
 
 getStudentsProblem = async (req, res, next) => {
-  console.log(req.params.problemType)
   try {
     const response = await studentsService.getStudentsProblem(req.params.problemType , req.params.status);
-    console.log(response , "**********")
     res
       .status(201)
       .send(reqResponse.successResponse(201, "success", response));
@@ -99,10 +96,8 @@ changeStatus = async (req, res, next) => {
 };
 
 getMajorChange = async (req, res, next) => {
-  console.log(req.params.major , req.params.year)
   try {
     const response = await studentsService.getMajorChange(req.params.major , req.params.year , req.params.status);
-    console.log(response , "**********")
     res
       .status(201)
       .send(reqResponse.successResponse(201, "success", response));
@@ -112,10 +107,8 @@ getMajorChange = async (req, res, next) => {
 };
 
 getYear = async (req, res, next) => {
-  console.log(req.params.year , req.params.major)
   try {
-    const response = await studentsService.getYear(req.params.year , req.params.major , req.params.satus);
-    console.log(response , "**********")
+    const response = await studentsService.getYear(req.params.year , req.params.major , req.params.status);
     res
       .status(201)
       .send(reqResponse.successResponse(201, "success", response));

@@ -102,5 +102,6 @@ module.exports = {
   dashboardCourses,
   dashboardMajor,
   sendDoneEmail,
-  changeMajorStatus
+  changeMajorStatus,
+  getMajorStatus
 };
