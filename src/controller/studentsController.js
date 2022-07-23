@@ -2,8 +2,16 @@ const studentsService = require("../services/studentsService")
 const reqResponse = require('../core/responseHandler');
 const res = require("express/lib/response");
 
+// res.success = function(){
+
+// }
+
+
+
+
+
 signup = async (req, res, next) => {
-  try {
+  try { 
     const response = await studentsService.signup(req.body);
     res
       .status(201)
