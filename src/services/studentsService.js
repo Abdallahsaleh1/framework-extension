@@ -3,8 +3,8 @@ const moment = require('moment')
 
 
 
-dashboardMajor = async () => {
-  return await studentsRepository.dashboardMajor();
+studentsInfo = async () => {
+  return await studentsRepository.studentsInfo();
 };
 
  
@@ -12,6 +12,6 @@ dashboardMajor = async () => {
 
 module.exports = {
 
-  dashboardMajor,
+  studentsInfo,
 
 };

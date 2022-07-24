@@ -33,6 +33,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use('/', require('./src/routes/studentsRoute'));
 
+app.response.status = function (jsonResponse) {
+  return this.contentType('application/json')
+    .json({data:jsonResponse.data})
+}
+
+
+
 const PORT = process.env.PORT || 5000;
 try {
     app.listen(PORT, console.log(`Server started on port ${PORT}`));

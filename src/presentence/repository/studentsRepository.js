@@ -3,17 +3,10 @@ const { resolve } = require('path');
 const db = require('../../server');
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'department.cap@gmail.com',
-    pass: 'test@cap21'
-  }
-});
 
 
 
-dashboardMajor = async () => {
+studentsInfo = async () => {
   var sql = `SELECT * FROM student`;
   return new Promise(function (resolve, reject) {
     db.query(sql, function (err, result) {
@@ -33,6 +26,6 @@ dashboardMajor = async () => {
 
 module.exports = {
 
-  dashboardMajor,
+  studentsInfo,
 
 };
